@@ -1,0 +1,18 @@
+<HomeScreen>:
+    name: 'HomeScreen'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Column:
+        halign: 'center'
+        valign: 'center'
+        padding: dp(100)
+
+        Widget:
+            expandable: True
+
+        MDRaisedButton:
+            text: 'Register'
+            on_release: root.to_register()
+
