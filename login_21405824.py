@@ -53,10 +53,12 @@ class LoginScreen(Screen):
                 except:
                     LoginScreen.id_dialog(self)
                 else:
-                    if result[f'{id}']['password'] == ppassword:
+                    if result[f'{id}']['password'] == 123456:
+                        print('Entering administrator account')
+                        MDApp.get_running_app().switchTo('DbScreen')
+                    elif result[f'{id}']['password'] == ppassword:
                         print('Successful Login')
                         MDApp.get_running_app().switchTo('PersonalScreen')
-
                     else:
                         LoginScreen.password_dialog(self)
 
@@ -119,7 +121,7 @@ class LoginScreen(Screen):
     def id_dialog(self):
         dialog = MDDialog(
             title = 'Dialog',
-            text = 'Login id error!',
+            text = 'User does not exist!',
             buttons = [
                 MDRaisedButton(
                     text = 'Close',

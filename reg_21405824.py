@@ -41,23 +41,27 @@ class RegisterScreen(Screen):
         ppassword = str(self.ids.txt_password.text)
         pphonenumber = str(self.ids.txt_phonenumber.text)
 
+        result = db.child('/Userlist').get().val()
         if pid == '' or pemailaddress == '' or ppassword == '' or pphonenumber == '':
             RegisterScreen.show_dialog(self)
         else:
-            data = dict(
-                        id = pid,
-                        emailaddress = pemailaddress,
-                        password = ppassword,
-                        phonenumber = pphonenumber)
-            response = db.child(f'/Userlist/{pid}').set(data)
-            print('Successful uploaded')
-            
-            self.ids.txt_id.text = ''
-            self.ids.txt_emailaddress.text = ''
-            self.ids.txt_password.text = ''
-            self.ids.txt_phonenumber.text = ''
+            if pid == result[f'{pid}']['id']:
+                RegisterScreen.pid_dialog(self)
+            else:
+                data = dict(
+                            id = pid,
+                            emailaddress = pemailaddress,
+                            password = ppassword,
+                            phonenumber = pphonenumber)
+                response = db.child(f'/Userlist/{pid}').set(data)
+                print('Successful uploaded')
+                
+                self.ids.txt_id.text = ''
+                self.ids.txt_emailaddress.text = ''
+                self.ids.txt_password.text = ''
+                self.ids.txt_phonenumber.text = ''
 
-            MDApp.get_running_app().switchTo('LoginScreen')
+                MDApp.get_running_app().switchTo('LoginScreen')
         return
 
     def cancel(self):
@@ -81,6 +85,18 @@ class RegisterScreen(Screen):
         dialog = MDDialog(
             title = 'Dialog',
             text = 'Register fields cannot be empty!',
+            buttons = [
+                MDRaisedButton(
+                    text = 'Close',
+                    on_release = lambda x: dialog.dismiss()),
+            ]
+        )
+        dialog.open()
+
+    def pid_dialog(self):
+        dialog = MDDialog(
+            title = 'Dialog',
+            text = 'Account name registered!',
             buttons = [
                 MDRaisedButton(
                     text = 'Close',
