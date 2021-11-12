@@ -1,16 +1,6 @@
-from kivymd.app import MDApp
-from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.lang import Builder
-from mandel_lib import *
 from firebase import Firebase
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDRaisedButton
 
-from kivy.core.window import Window
-from kivy.utils import platform
-if platform in ('win', 'macosx'):
-    Window.size = (414, 736)
-    Window.top = 50
+
 
 config = {
     'apiKey': '',
@@ -34,57 +24,9 @@ config = {
 myfirebase = Firebase(config)
 db = myfirebase.database()
 
-class RegisterScreen(Screen):
-    def register(self):
-        pid = str(self.ids.txt_id.text)
-        pemailaddress = str(self.ids.txt_emailaddress.text)
-        ppassword = str(self.ids.txt_password.text)
-        pphonenumber = str(self.ids.txt_phonenumber.text)
+y = 12
 
-        if pid == '' or pemailaddress == '' or ppassword == '' or pphonenumber == '':
-            RegisterScreen.show_dialog(self)
-        else:
-            data = dict(
-                        id = pid,
-                        emailaddress = pemailaddress,
-                        password = ppassword,
-                        phonenumber = pphonenumber)
-            response = db.child(f'/Userlist/{pid}').set(data)
-            print('Successful uploaded')
-            
-            self.ids.txt_id.text = ''
-            self.ids.txt_emailaddress.text = ''
-            self.ids.txt_password.text = ''
-            self.ids.txt_phonenumber.text = ''
+result = db.child('/Userlist').get().val()
+x = result[f'{y}']['password']
+print(x)
 
-            MDApp.get_running_app().switchTo('LoginScreen')
-        return
-
-    def cancel(self):
-        self.ids.txt_id.text = ''
-        self.ids.txt_emailaddress.text = ''
-        self.ids.txt_password.text = ''
-        self.ids.txt_phonenumber.text = ''
-        print('CANCEL')
-
-    def back(self):
-        self.ids.txt_id.text = ''
-        self.ids.txt_emailaddress.text = ''
-        self.ids.txt_password.text = ''
-        self.ids.txt_phonenumber.text = ''
-        app = MDApp.get_running_app()
-        app.manager.transition.direction = 'left'
-        app.manager.current = 'HomeScreen'
-        print('BACK')
-
-    def show_dialog(self):
-        dialog = MDDialog(
-            title = 'Dialog',
-            text = 'Register fields cannot be empty!',
-            buttons = [
-                MDRaisedButton(
-                    text = 'Close',
-                    on_release = lambda x: dialog.dismiss()),
-            ]
-        )
-        dialog.open()

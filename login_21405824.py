@@ -8,6 +8,8 @@ from kivymd.uix.button import MDRaisedButton
 
 from kivy.core.window import Window
 from kivy.utils import platform
+
+
 if platform in ('win', 'macosx'):
     Window.size = (414, 736)
     Window.top = 50
@@ -34,53 +36,90 @@ config = {
 myfirebase = Firebase(config)
 db = myfirebase.database()
 
-class RegisterScreen(Screen):
-    def register(self):
-        pid = str(self.ids.txt_id.text)
-        pemailaddress = str(self.ids.txt_emailaddress.text)
-        ppassword = str(self.ids.txt_password.text)
-        pphonenumber = str(self.ids.txt_phonenumber.text)
-
-        if pid == '' or pemailaddress == '' or ppassword == '' or pphonenumber == '':
-            RegisterScreen.show_dialog(self)
+class LoginScreen(Screen):
+    def login(self):
+        try:
+            id = str(self.ids.txt_id.text)
+            ppassword = str(self.ids.txt_password.text)
+        except:
+            LoginScreen.error_dialog(self)
         else:
-            data = dict(
-                        id = pid,
-                        emailaddress = pemailaddress,
-                        password = ppassword,
-                        phonenumber = pphonenumber)
-            response = db.child(f'/Userlist/{pid}').set(data)
-            print('Successful uploaded')
-            
-            self.ids.txt_id.text = ''
-            self.ids.txt_emailaddress.text = ''
-            self.ids.txt_password.text = ''
-            self.ids.txt_phonenumber.text = ''
+            if id == '' or ppassword == '' :
+                LoginScreen.show_dialog(self)
+            else:
+                result = db.child('/Userlist').get().val()
+                try:
+                    x = result[f'{id}']
+                except:
+                    LoginScreen.id_dialog(self)
+                else:
+                    if result[f'{id}']['password'] == ppassword:
+                        print('Successful Login')
+                        MDApp.get_running_app().switchTo('PersonalScreen')
 
-            MDApp.get_running_app().switchTo('LoginScreen')
+                    else:
+                        LoginScreen.password_dialog(self)
+
         return
+
+    def to_register(self):
+        self.ids.txt_id.text = ''
+        self.ids.txt_password.text = ''
+        MDApp.get_running_app().switchTo('RegisterScreen')
 
     def cancel(self):
         self.ids.txt_id.text = ''
-        self.ids.txt_emailaddress.text = ''
         self.ids.txt_password.text = ''
-        self.ids.txt_phonenumber.text = ''
         print('CANCEL')
 
     def back(self):
         self.ids.txt_id.text = ''
-        self.ids.txt_emailaddress.text = ''
         self.ids.txt_password.text = ''
-        self.ids.txt_phonenumber.text = ''
         app = MDApp.get_running_app()
         app.manager.transition.direction = 'left'
         app.manager.current = 'HomeScreen'
         print('BACK')
 
+    def error_dialog(self):
+        dialog = MDDialog(
+            title = 'Dialog',
+            text = 'Login fields error!',
+            buttons = [
+                MDRaisedButton(
+                    text = 'Close',
+                    on_release = lambda x: dialog.dismiss()),
+            ]
+        )
+        dialog.open()
+
     def show_dialog(self):
         dialog = MDDialog(
             title = 'Dialog',
-            text = 'Register fields cannot be empty!',
+            text = 'Login fields cannot be empty!',
+            buttons = [
+                MDRaisedButton(
+                    text = 'Close',
+                    on_release = lambda x: dialog.dismiss()),
+            ]
+        )
+        dialog.open()
+
+    def password_dialog(self):
+        dialog = MDDialog(
+            title = 'Dialog',
+            text = 'Login password error!',
+            buttons = [
+                MDRaisedButton(
+                    text = 'Close',
+                    on_release = lambda x: dialog.dismiss()),
+            ]
+        )
+        dialog.open()
+
+    def id_dialog(self):
+        dialog = MDDialog(
+            title = 'Dialog',
+            text = 'Login id error!',
             buttons = [
                 MDRaisedButton(
                     text = 'Close',

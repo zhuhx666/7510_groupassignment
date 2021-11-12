@@ -8,6 +8,8 @@ from kivymd.uix.button import MDRaisedButton
 
 from kivy.core.window import Window
 from kivy.utils import platform
+
+
 if platform in ('win', 'macosx'):
     Window.size = (414, 736)
     Window.top = 50
@@ -34,53 +36,61 @@ config = {
 myfirebase = Firebase(config)
 db = myfirebase.database()
 
-class RegisterScreen(Screen):
-    def register(self):
-        pid = str(self.ids.txt_id.text)
-        pemailaddress = str(self.ids.txt_emailaddress.text)
+class PersonalScreen(Screen):
+    def login(self):
+        id = str(self.ids.txt_id.text)
         ppassword = str(self.ids.txt_password.text)
-        pphonenumber = str(self.ids.txt_phonenumber.text)
 
-        if pid == '' or pemailaddress == '' or ppassword == '' or pphonenumber == '':
-            RegisterScreen.show_dialog(self)
+        if id == '' or ppassword == '' :
+            PersonalScreen.show_dialog(self)
         else:
-            data = dict(
-                        id = pid,
-                        emailaddress = pemailaddress,
-                        password = ppassword,
-                        phonenumber = pphonenumber)
-            response = db.child(f'/Userlist/{pid}').set(data)
-            print('Successful uploaded')
-            
-            self.ids.txt_id.text = ''
-            self.ids.txt_emailaddress.text = ''
-            self.ids.txt_password.text = ''
-            self.ids.txt_phonenumber.text = ''
-
-            MDApp.get_running_app().switchTo('LoginScreen')
+            result = db.child('/userlist').get().val()
+            if result[f'{id}']:
+                if result[f'{id}']['password'] == ppassword:
+                    print('Successful Login')
+                    MDApp.get_running_app().switchTo('PersonalScreen')
+                else:
+                    PersonalScreen.password_dialog()
+            else:
+                PersonalScreen.id_dialog()
         return
+
+    def to_register(self):
+        MDApp.get_running_app().switchTo('RegisterScreen')
 
     def cancel(self):
         self.ids.txt_id.text = ''
-        self.ids.txt_emailaddress.text = ''
         self.ids.txt_password.text = ''
-        self.ids.txt_phonenumber.text = ''
         print('CANCEL')
-
-    def back(self):
-        self.ids.txt_id.text = ''
-        self.ids.txt_emailaddress.text = ''
-        self.ids.txt_password.text = ''
-        self.ids.txt_phonenumber.text = ''
-        app = MDApp.get_running_app()
-        app.manager.transition.direction = 'left'
-        app.manager.current = 'HomeScreen'
-        print('BACK')
 
     def show_dialog(self):
         dialog = MDDialog(
             title = 'Dialog',
-            text = 'Register fields cannot be empty!',
+            text = 'Login fields cannot be empty!',
+            buttons = [
+                MDRaisedButton(
+                    text = 'Close',
+                    on_release = lambda x: dialog.dismiss()),
+            ]
+        )
+        dialog.open()
+
+    def password_dialog(self):
+        dialog = MDDialog(
+            title = 'Dialog',
+            text = 'Login password error!',
+            buttons = [
+                MDRaisedButton(
+                    text = 'Close',
+                    on_release = lambda x: dialog.dismiss()),
+            ]
+        )
+        dialog.open()
+
+    def id_dialog(self):
+        dialog = MDDialog(
+            title = 'Dialog',
+            text = 'Login id error!',
             buttons = [
                 MDRaisedButton(
                     text = 'Close',

@@ -1,0 +1,51 @@
+<PersonalScreen>:
+    name: 'PersonalScreen'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Column:
+        halign: 'center'
+        valign: 'center'
+        padding: dp(100)
+        spacing: dp(20)
+
+
+        Widget:
+            expandable: True
+
+        MDTextField:
+            id: txt_id
+            hint_text: 'Id'
+            required: False
+
+        MDTextField:
+            id: txt_emailaddress
+            hint_text: 'Email address'
+            required: False
+
+        MDTextField:
+            id: txt_password
+            hint_text: 'Password'
+            password: True
+            required: False
+
+        MDTextField:
+            id: txt_phonenumber
+            hint_text: 'Phone number'
+            required: False
+        
+        Button:
+            text: 'Register'
+            text_color: .5, .5, .8, 1
+            on_release: root.register()
+
+        Button:
+            text: 'Cancel'
+            text_color: .5, .5, .8, 1
+            on_release: root.cancel()
+
+        Button:
+            text: 'Back'
+            text_color: .5, .5, .8, 1
+            on_release: root.back()

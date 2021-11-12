@@ -1,5 +1,5 @@
-<RegisterScreen>:
-    name: 'RegisterScreen'
+<LoginScreen>:
+    name: 'LoginScreen'
     canvas.before:
         Rectangle:
             pos: self.pos
@@ -7,7 +7,6 @@
 
     Column:
         MDToolbar:
-            elevation: dp(5)
             title: ''
             left_action_items:[['arrow-left', lambda x: root.back()]]
             md_bg_color: app.theme_cls.accent_color
@@ -36,27 +35,24 @@
                 required: False
 
             MDTextField:
-                id: txt_emailaddress
-                hint_text: 'Email address'
-                required: False
-
-            MDTextField:
                 id: txt_password
                 hint_text: 'Password'
                 password: True
                 required: False
-
-            MDTextField:
-                id: txt_phonenumber
-                hint_text: 'Phone number'
-                required: False
             
+            Button:
+                text: 'Login'
+                text_color: .5, .5, .8, 1
+                on_release: root.login()
+
             Button:
                 text: 'Register'
                 text_color: .5, .5, .8, 1
-                on_release: root.register()
+                on_release: root.to_register()
 
             Button:
                 text: 'Cancel'
                 text_color: .5, .5, .8, 1
                 on_release: root.cancel()
+
+

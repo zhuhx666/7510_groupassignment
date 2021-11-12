@@ -4,15 +4,40 @@
         Rectangle:
             pos: self.pos
             size: self.size
+
     Column:
-        halign: 'center'
-        valign: 'center'
-        padding: dp(100)
+        MDToolbar:
+            elevation: dp(5)
+            title: ''
+            right_action_items:[['magnify', lambda x: app.dosomething(x)], ["clock", lambda x: app.callback_2()]]
+            md_bg_color: app.theme_cls.accent_color
 
-        Widget:
-            expandable: True
+        Column:
+            halign: 'center'
+            valign: 'center'
+            padding: dp(100)
+            spacing: dp(20)
 
-        MDRaisedButton:
-            text: 'Register'
-            on_release: root.to_register()
+            Image:
+                source: 'genshin.png'
+
+            MDLabel:
+                id: label
+                text: 'Genshin'
+                font_size: dp(48)
+                color: .5, .5, .8, 1
+
+            Widget:
+                expandable: True
+
+            MDRaisedButton:
+                text: 'Login'
+                on_release: root.to_login()
+
+            MDRaisedButton:
+                text: 'Register'
+                on_release: root.to_register()
+
+
+
 
