@@ -1,0 +1,50 @@
+<ListScreen>:
+    name: 'ListScreen'
+    Column:
+        MDToolbar:
+            title: ''
+            left_action_items: [['arrow-left', lambda x: root.go_back()]]
+
+        Column:
+            ScrollView:
+                Column:
+                    id: container
+                    fit_content_height: True
+
+<MyListItem>:
+    tailing_width: dp(100)
+    on_release: self.go_next()
+    MDIcon:
+        icon: 'account-box'
+        role: 'leading'
+    Row:
+        spacing: dp(10)
+        valign: 'center'
+        role: 'tailing'
+        MDIcon:
+            icon: 'arrow-right'
+            halign: 'right'
+
+
+<BtnScreen>:
+    name: 'BtnScreen'
+    title: ''
+    label_text: ''
+    content: ''
+    phone: ''
+    Column:
+        MDToolbar:
+            title: root.title
+            left_action_items: [['arrow-left', lambda x: root.go_back()]]
+        ScrollView:
+            Column:
+                fit_content_height: True
+                MDLabel:
+                    text: root.title
+                MDLabel:
+                    text: root.label_text
+                MDLabel:
+                    text: root.content
+                MDLabel:
+                    text: root.phone
+

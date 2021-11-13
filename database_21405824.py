@@ -1,12 +1,11 @@
-from kivy.lang import Builder
-from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.lang import Builder
 from mandel_lib import *
-from kivymd.uix.boxlayout import MDBoxLayout
+from mandel_lib import ListItem
 from firebase import Firebase
-
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDRaisedButton
 
 from kivy.core.window import Window
 from kivy.utils import platform
@@ -38,19 +37,58 @@ config = {
 myfirebase = Firebase(config)
 db = myfirebase.database()
 
-class ContentNavigationDrawer(MDBoxLayout):
-    screen_manager = ObjectProperty()
-    nav_drawer = ObjectProperty()
+# class MessageItem(ListItem):
+#     def show_details(self):
+#         app = MDApp.get_running_app()
+#         screen = app.manager.get_screen('DetailScreen')
+#         screen.key = self.key
+#         screen.id = self.id
+#         screen.emailaddress = self.emailaddress
+#         screen.password = self.password
+#         screen.phonenumber = self.phonenumber
+#         app.manager.transition.direction = 'right'
+#         app.manager.current = 'DetailScreen'
 
-    def to_register(self):
-        MDApp.get_running_app().switchTo('RegisterScreen')
-
-    def to_personal(self):
-        MDApp.get_running_app().switchTo('PersonalScreen')
-
-
-class PersonalScreen(Screen):
-    def home():
+class MyListItem(ListItem):
+    def go_next(self):
         app = MDApp.get_running_app()
-        app.manager.transition.direction = 'left'
-        app.manager.current = 'RegisterScreen'
+        app.manager.get_screen('BtnScreen').title = self.title
+        app.manager.get_screen('BtnScreen').label_text = self.label_text
+        app.manager.get_screen('BtnScreen').content = self.content
+        app.manager.get_screen('BtnScreen').phone = self.phone
+        app.manager.current = 'BtnScreen'
+
+class ListScreen(Screen):
+    def __init__(self):
+        super().__init__() # you must add this line to avoid error
+        print('Initialize ListScreen')
+    def on_pre_enter(self):
+        print('Pre-enter ListScreen')
+        result = db.child("/Userlist").get().val()
+        container = self.ids.container
+        for k, v in result.items():
+            item = MyListItem()
+            item.title = v['id']
+            item.label_text = v['emailaddress']
+            item.content = v['password']
+            item.phone = v['phonenumber']
+            item.key = k
+            container.add_widget(item)
+    def on_enter(self):
+        print('Enter ListScreen')
+    def on_pre_leave(self):
+        print('Pre-leave ListScreen')
+    def on_leave(self):
+        print('Leave ListScreen')
+        container = self.ids.container
+        container.clear_widgets()
+    def go_back(self):
+        app = MDApp.get_running_app()
+        app.manager.current = 'HomeScreen'
+        app.manager.transition.direction = 'right'
+
+class BtnScreen(Screen):
+    def go_back(self):
+        app = MDApp.get_running_app()
+        app.manager.current = 'ListScreen'
+        app.manager.transition.direction = 'right'

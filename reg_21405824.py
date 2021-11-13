@@ -45,14 +45,14 @@ class RegisterScreen(Screen):
         if pid == '' or pemailaddress == '' or ppassword == '' or pphonenumber == '':
             RegisterScreen.show_dialog(self)
         else:
-            if pid == result[f'{pid}']['id']:
-                RegisterScreen.pid_dialog(self)
-            else:
+            try: 
+                pid == result[f'{pid}']['id']
+            except:
                 data = dict(
-                            id = pid,
-                            emailaddress = pemailaddress,
-                            password = ppassword,
-                            phonenumber = pphonenumber)
+                    id = pid,
+                    emailaddress = pemailaddress,
+                    password = ppassword,
+                    phonenumber = pphonenumber)
                 response = db.child(f'/Userlist/{pid}').set(data)
                 print('Successful uploaded')
                 
@@ -62,6 +62,8 @@ class RegisterScreen(Screen):
                 self.ids.txt_phonenumber.text = ''
 
                 MDApp.get_running_app().switchTo('LoginScreen')
+            else:
+                RegisterScreen.pid_dialog(self)
         return
 
     def cancel(self):

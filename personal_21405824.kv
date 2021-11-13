@@ -1,51 +1,75 @@
+<ContentNavigationDrawer>
+
+    ScrollView:
+
+        MDList:
+
+            OneLineListItem:
+                text: "Screen 1"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    on_release: root.to_personal()
+
+            OneLineListItem:
+                text: "Screen 2"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    on_release: root.to_register()
+
+
 <PersonalScreen>:
-    name: 'PersonalScreen'
-    canvas.before:
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    name: "PersonalScreen"
+    title: ''
+    label_text: ''
+    content: ''
+    phone: ''
+
     Column:
-        halign: 'center'
-        valign: 'center'
-        padding: dp(100)
-        spacing: dp(20)
+
+        MDToolbar:
+            id: toolbar
+            pos_hint: {"top": 1}
+            elevation: 10
+            title: "Account: " + root.title
+            left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+            right_action_items: [['magnify', lambda x: app.dosomething(x)]]
 
 
-        Widget:
-            expandable: True
 
-        MDTextField:
-            id: txt_id
-            hint_text: 'Id'
-            required: False
+        Column:
+            halign: 'center'
+            valign: 'center'
+            padding: dp(100)
+            spacing: dp(20)
+            
 
-        MDTextField:
-            id: txt_emailaddress
-            hint_text: 'Email address'
-            required: False
+            MDLabel:
+                text: "Account: " + root.title
+                font_size: dp(20)
+                color: .5, .5, .8, 1
+            
+            MDLabel:
+                text: "Emailaddress: " + root.label_text
+                font_size: dp(20)
+                color: .5, .5, .8, 1
 
-        MDTextField:
-            id: txt_password
-            hint_text: 'Password'
-            password: True
-            required: False
+            MDLabel:
+                text: "Password: " + root.content
+                font_size: dp(20)
+                color: .5, .5, .8, 1
 
-        MDTextField:
-            id: txt_phonenumber
-            hint_text: 'Phone number'
-            required: False
-        
-        Button:
-            text: 'Register'
-            text_color: .5, .5, .8, 1
-            on_release: root.register()
+            MDLabel:
+                text: "Phonenumber: " + root.phone
+                font_size: dp(20)
+                color: .5, .5, .8, 1
 
-        Button:
-            text: 'Cancel'
-            text_color: .5, .5, .8, 1
-            on_release: root.cancel()
 
-        Button:
-            text: 'Back'
-            text_color: .5, .5, .8, 1
-            on_release: root.back()
+    MDNavigationLayout:
+        x: toolbar.height
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                nav_drawer: nav_drawer
+

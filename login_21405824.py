@@ -53,12 +53,24 @@ class LoginScreen(Screen):
                 except:
                     LoginScreen.id_dialog(self)
                 else:
-                    if result[f'{id}']['password'] == 123456:
+                    if result[f'{id}']['password'] == '123456':
                         print('Entering administrator account')
-                        MDApp.get_running_app().switchTo('DbScreen')
+                        self.ids.txt_id.text = ''
+                        self.ids.txt_password.text = ''
+                        MDApp.get_running_app().switchTo('ListScreen')
                     elif result[f'{id}']['password'] == ppassword:
                         print('Successful Login')
-                        MDApp.get_running_app().switchTo('PersonalScreen')
+                        self.ids.txt_id.text = ''
+                        self.ids.txt_password.text = ''
+                        app = MDApp.get_running_app()
+                        screen = app.manager.get_screen('PersonalScreen')
+                        # screen.key = self.key
+                        screen.title = id
+                        screen.label_text = result[f'{id}']['emailaddress']
+                        screen.content = result[f'{id}']['password']
+                        screen.phone = result[f'{id}']['phonenumber']
+                        app.manager.transition.direction = 'left'
+                        app.manager.current = 'PersonalScreen'
                     else:
                         LoginScreen.password_dialog(self)
 
