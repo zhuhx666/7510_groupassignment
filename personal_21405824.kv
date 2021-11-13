@@ -5,16 +5,16 @@
         MDList:
 
             OneLineListItem:
-                text: "Screen 1"
+                text: "HomePage"
                 on_press:
                     root.nav_drawer.set_state("close")
-                    on_release: root.to_personal()
+                    on_release: root.to_home()
 
             OneLineListItem:
-                text: "Screen 2"
+                text: "PersonalPage"
                 on_press:
                     root.nav_drawer.set_state("close")
-                    on_release: root.to_register()
+                    on_release: root.to_PersonalScreen()
 
 
 <PersonalScreen>:

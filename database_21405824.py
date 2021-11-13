@@ -57,6 +57,7 @@ class MyListItem(ListItem):
         app.manager.get_screen('BtnScreen').content = self.content
         app.manager.get_screen('BtnScreen').phone = self.phone
         app.manager.current = 'BtnScreen'
+        app.manager.transition.direction = 'left'
 
 class ListScreen(Screen):
     def __init__(self):
