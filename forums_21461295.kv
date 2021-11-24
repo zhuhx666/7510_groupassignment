@@ -1,0 +1,166 @@
+<forums>:
+    name: 'forums'
+    user: ''
+    ScrollView:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: dp(1200)
+            MDLabel:
+                
+                text: 'First Post'
+                font_name: 'Arial'
+                font_size: dp(12)
+                color: 1, 1, 1, 1
+                outline_width: dp(3)
+                outline_color: 0, 0, 0, 1
+                italic: True
+                bold: True
+                shorten: True
+                shorten_from: 'right'
+                halign: 'left'
+                valign: 'top'
+            TextInput:
+                padding: dp(0), dp(0), dp(10), dp(0)
+                id: id_text1
+                valign: 'bottom'
+                font_size: dp(20)
+                content1:''
+                text: root.content1
+                halign: 'left'
+                font_size: 16
+                multiline: True
+                background_color: 0, 0, 0, 0
+            MDTextField:
+                id: id_reply1
+                hint_text: 'Please input your reply(If there is not a post,you can not replt)'
+                multiline: True
+            Row:
+                MDIconButton:
+                    halign: 'right'
+                    icon: 'check-circle'
+                    on_release: root.Replying1()
+                MDIconButton:
+                    icon: 'close-circle'
+                    on_release: root.Clear1()
+
+            MDLabel:
+                
+                text: 'Second Post'
+                font_name: 'Arial'
+                font_size: dp(12)
+                color: 1, 1, 1, 1
+                outline_width: dp(3)
+                outline_color: 0, 0, 0, 1
+                italic: True
+                bold: True
+                shorten: True
+                shorten_from: 'right'
+                halign: 'left'
+                valign: 'top'
+                
+                
+            TextInput:
+                padding: dp(0), dp(0), dp(10), dp(0)
+                id: id_text2
+                valign: 'bottom'
+                font_size: dp(20)
+                halign: 'left'
+                font_size: 16
+                multiline: True
+                background_color: 0, 0, 0, 0
+            MDTextField:
+                id: id_reply2
+                hint_text: 'Please input your reply(If there is not a post,you can not replt)'
+                multiline: True               
+            Row:
+                MDIconButton:
+                    halign: 'right'
+                    icon: 'check-circle'
+                    on_release: root.Replying2()
+                MDIconButton:
+                    icon: 'close-circle'
+                    on_release: root.Clear2()
+            
+            MDLabel:
+                
+                text: 'Third Post'
+                font_name: 'Arial'
+                font_size: dp(12)
+                color: 1, 1, 1, 1
+                outline_width: dp(3)
+                outline_color: 0, 0, 0, 1
+                italic: True
+                bold: True
+                shorten: True
+                shorten_from: 'right'
+                halign: 'left'
+                valign: 'top'
+                
+
+            TextInput:
+                padding: dp(0), dp(0), dp(10), dp(0)
+                id: id_text3
+                valign: 'bottom'
+                font_size: dp(20)
+                halign: 'left'
+                font_size: 16
+                multiline: True
+                background_color: 0, 0, 0, 0
+            MDTextField:
+                id: id_reply3
+                hint_text: 'Please input your reply(If there is not a post,you can not replt)'
+                multiline: True               
+            Row:
+                MDIconButton:
+                    halign: 'right'
+                    icon: 'check-circle'
+                    on_release: root.Replying3()
+                MDIconButton:
+                    icon: 'close-circle'
+                    on_release: root.Clear3()
+                
+
+
+           
+            
+            
+            
+            
+
+      
+                       
+
+                
+            Row:
+                spacing: dp(50)
+                padding: dp(50)
+                valign: 'top'
+                halign: 'left'
+                MDFillRoundFlatIconButton:
+                    icon: 'reply'
+                    text:'Function'
+                    on_release: root.Function()
+                MDFillRoundFlatIconButton:
+                    icon: 'clipboard-plus-outline'
+                    text:'Post'
+                    on_release: root.Post()
+                MDFillRoundFlatIconButton:
+                    icon: 'progress-close'
+                    text:'Quit'
+                    on_release: root.Quit()
+                
+                
+                MDLabel:
+
+                    text: root.user
+                    font_size: dp(20)
+                    color: 1, 1, 1, 1
+                    outline_width: dp(3)
+                    outline_color: 0, 0, 0, 1
+                    italic: True
+                    bold: True
+                    shorten: True
+                    shorten_from: 'right'
+                    halign: 'right'
+                    valign: 'bottom'

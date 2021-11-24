@@ -8,6 +8,9 @@ from personal_21405824 import PersonalScreen
 from database_21405824 import ListScreen
 from database_21405824 import BtnScreen
 
+from forums_21461295 import forums
+from forums_21461295 import post #21461295
+
 from kivy.core.window import Window
 from kivy.utils import platform
 if platform in ('win', 'macosx'):
@@ -34,13 +37,25 @@ class MyApp(MDApp):
         Builder.load_file('login_21405824.kv')
         Builder.load_file('personal_21405824.kv')
         Builder.load_file('database_21405824.kv')
+#############################################################################################
+        # Builder.load_file('function_21461295.kv')
+        Builder.load_file('forums_21461295.kv') 
+        Builder.load_file('post_21461295.kv')#21461295 +personal_21405524.kv(OneLineListItem)+personal_21405524.py(to_forums)
+        ######################################+login_21405824.py
+#############################################################################################  
         manager = self.manager = ScreenManager()
+
         manager.add_widget(HomeScreen())
         manager.add_widget(LoginScreen())
         manager.add_widget(RegisterScreen())
         manager.add_widget(ListScreen())
         manager.add_widget(BtnScreen())
         manager.add_widget(PersonalScreen())
+#############################################################################################        
+        # manager.add_widget(function())
+        manager.add_widget(forums())
+        manager.add_widget(post()) #21461295
+#############################################################################################  
         return manager
 
     def switchTo(self, screen_name):

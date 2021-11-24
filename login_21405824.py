@@ -63,12 +63,18 @@ class LoginScreen(Screen):
                         self.ids.txt_id.text = ''
                         self.ids.txt_password.text = ''
                         app = MDApp.get_running_app()
-                        screen = app.manager.get_screen('PersonalScreen')
+                        personalscreen = app.manager.get_screen('PersonalScreen')
+                        forumsscreen = app.manager.get_screen('forums')#21461295
+                        postscreen = app.manager.get_screen('post')#21461295
                         # screen.key = self.key
-                        screen.title = id
-                        screen.label_text = result[f'{id}']['emailaddress']
-                        screen.content = result[f'{id}']['password']
-                        screen.phone = result[f'{id}']['phonenumber']
+                        personalscreen.title = id
+                        forumsscreen.user = id#21461295
+                        postscreen.user = id#21461295
+                        print(personalscreen.title)
+                        personalscreen.label_text = result[f'{id}']['emailaddress']
+                        personalscreen.content = result[f'{id}']['password']
+                        personalscreen.phone = result[f'{id}']['phonenumber']
+
                         app.manager.transition.direction = 'left'
                         app.manager.current = 'PersonalScreen'
                     else:

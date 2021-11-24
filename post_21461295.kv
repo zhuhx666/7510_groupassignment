@@ -1,0 +1,44 @@
+<post>:
+    name: 'post'
+    user: ''
+    Column:
+        padding: dp(20),dp(50)
+        halign: 'right'
+
+        MDTextField:
+            id: txt_newtopic
+            hint_text: 'Please input your topic(The topic can not be blank)'
+            multiline: True
+        MDTextField:
+            id: txt_newcontent
+            hint_text: 'Please input your content about topic'
+            multiline: True
+        MDLabel:
+            text: 'The screen refreshes every ten seconds,You may delay seeing your new posts '
+            font_name: 'Arial'
+            font_size: dp(12)
+            color: 0, 0, 0, 0.5
+            halign: 'left'
+            valign: 'top'
+
+        Row:
+            spacing:dp(100)
+            MDIconButton:
+                icon: 'check-circle'
+                on_release: root.Posting()
+            MDIconButton:
+                icon: 'close-circle'
+                on_release: root.Clear()
+            MDLabel:
+
+                text: root.user
+                font_size: dp(20)
+                color: 1, 1, 1, 1
+                outline_width: dp(3)
+                outline_color: 0, 0, 0, 1
+                italic: True
+                bold: True
+                shorten: True
+                shorten_from: 'right'
+                halign: 'right'
+                valign: 'bottom'

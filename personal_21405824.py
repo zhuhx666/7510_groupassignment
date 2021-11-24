@@ -48,6 +48,9 @@ class ContentNavigationDrawer(MDBoxLayout):
     def to_personal(self):
         MDApp.get_running_app().switchTo('PersonalScreen')
 
+    def to_forums(self): 
+        MDApp.get_running_app().switchTo('forums') #21461295+OneLineListItem
+
 
 class PersonalScreen(Screen):
     def home():

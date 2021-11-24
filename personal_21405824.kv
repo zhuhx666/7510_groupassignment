@@ -14,7 +14,13 @@
                 text: "PersonalPage"
                 on_press:
                     root.nav_drawer.set_state("close")
-                    on_release: root.to_PersonalScreen()
+                    on_release: root.to_personal()
+
+            OneLineListItem:
+                text: "forumsPage"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    on_release: root.to_forums()
 
 
 <PersonalScreen>:
