@@ -79,8 +79,8 @@ class forums(Screen):
     content1='Topic:'+db.child('Forum/1/topic/').get().val()+'\n'+'Content:'+db.child('Forum/1/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/1/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/1/time/').get().val()+'\n'+'Reply:'+db.child('Forum/2/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/2/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/2/time/').get().val()+'\n'
     
     #这里假设发帖和回帖上传和下载数据库时，只有一位用户操作
-    def Function(self):
-        MDApp.get_running_app().switchTo('function')#屏幕切换到function页面的函数
+    def personal(self):
+        MDApp.get_running_app().switchTo('PersonalScreen')#屏幕切换到function页面的函数
     def Quit(self):
         MyApp().stop()#App退出函数
     def Post(self):
