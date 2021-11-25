@@ -51,6 +51,9 @@ class ContentNavigationDrawer(MDBoxLayout):
     def to_forums(self): 
         MDApp.get_running_app().switchTo('forums') #21461295+OneLineListItem
 
+    def to_sharing_page(self): 
+        MDApp.get_running_app().switchTo('share')
+
 
 class PersonalScreen(Screen):
     def home():

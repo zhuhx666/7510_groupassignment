@@ -9,6 +9,8 @@ from kivymd.uix.button import MDRaisedButton
 from kivy.core.window import Window
 from kivy.utils import platform
 
+from query import QueryScreen
+
 
 if platform in ('win', 'macosx'):
     Window.size = (414, 736)
@@ -64,12 +66,24 @@ class LoginScreen(Screen):
                         self.ids.txt_password.text = ''
                         app = MDApp.get_running_app()
                         personalscreen = app.manager.get_screen('PersonalScreen')
+
                         forumsscreen = app.manager.get_screen('forums')#21461295
                         postscreen = app.manager.get_screen('post')#21461295
+
+                        queryscreen = app.manager.get_screen('QueryScreen')
+
+                        sharescreen = app.manager.get_screen('share')
+                        #################################################################
                         # screen.key = self.key
                         personalscreen.title = id
+
                         forumsscreen.user = id#21461295
                         postscreen.user = id#21461295
+
+                        queryscreen.title = id
+
+                        sharescreen.title = id
+
                         print(personalscreen.title)
                         personalscreen.label_text = result[f'{id}']['emailaddress']
                         personalscreen.content = result[f'{id}']['password']

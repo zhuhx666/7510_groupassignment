@@ -17,10 +17,16 @@
                     on_release: root.to_personal()
 
             OneLineListItem:
-                text: "forumsPage"
+                text: "ForumsPage"
                 on_press:
                     root.nav_drawer.set_state("close")
                     on_release: root.to_forums()
+
+            OneLineListItem:
+                text: "PhotosharePage"
+                on_press:
+                    root.nav_drawer.set_state("close")
+                    on_release: root.to_sharing_page()
 
 
 <PersonalScreen>:
@@ -38,7 +44,8 @@
             elevation: 10
             title: "Account: " + root.title
             left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
-            right_action_items: [['magnify', lambda x: app.dosomething(x)]]
+            right_action_items: [['magnify', lambda x: app.switchTo('QueryScreen')]]
+            md_bg_color: app.theme_cls.accent_color
 
 
 

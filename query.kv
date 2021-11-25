@@ -1,5 +1,6 @@
-<HomeScreen>:
-    name: 'HomeScreen'
+<QueryScreen>:
+    name: 'QueryScreen'
+    title: ''
     canvas.before:
         Rectangle:
             pos: self.pos
@@ -8,7 +9,9 @@
     Column:
         MDToolbar:
             elevation: dp(5)
-            title: ''
+            title: "Account: " + root.title
+            right_action_items:[['magnify', lambda x: app.switchTo('QueryScreen')]]
+            left_action_items:[['arrow-left', lambda x: root.back()]]
             md_bg_color: app.theme_cls.accent_color
 
         Column:
@@ -17,26 +20,19 @@
             padding: dp(100)
             spacing: dp(20)
 
-            Image:
-                source: 'genshin.png'
-
             MDLabel:
                 id: label
-                text: 'Genshin'
+                text: 'Search'
                 font_size: dp(48)
                 color: .5, .5, .8, 1
-
             Widget:
                 expandable: True
+            MDTextField:
+                id: content_field
+                hint_text: "Enter any content..."               
 
             MDRaisedButton:
-                text: 'Login'
-                on_release: root.to_login()
-
-            MDRaisedButton:
-                text: 'Register'
-                on_release: root.to_register()
-
-
-
-
+                text: 'Search'
+                on_release: root.to_search()
+            
+            

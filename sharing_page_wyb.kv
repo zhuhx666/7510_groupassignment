@@ -1,0 +1,33 @@
+<share>:
+    name: 'share'
+    title: ''
+
+    Column:
+        MDToolbar:
+            pos_hint: {"top": 1}
+            title: "Account: " + root.title
+            left_action_items:[['arrow-left', lambda x: root.back()]]
+            md_bg_color: app.theme_cls.accent_color
+
+        Column:
+            halign: 'center'
+            valign: 'center'
+            padding: dp(100)
+            spacing: dp(40)
+
+            Widget:
+                expandable: True
+
+            TextInput:
+                id: txt_contents
+                hint_text: 'Share your feeling!'
+
+            MDTextField:
+                id: img_urls
+                hint_text: 'Type on your imagename'
+
+            MDRaisedButton:
+                text: 'Share!'
+                on_release: root.share_img()
+
+        

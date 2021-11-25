@@ -1,0 +1,20 @@
+<MyTile@SmartTileWithStar>
+    size_hint_y: None
+    height: "240dp"
+
+<showscreen>:
+    name: 'showscreen'
+    title: ''       
+    Column:
+        halign: 'center'
+        valign: 'center'
+        padding: dp(100)
+
+        MyTile:
+            id: img
+            halign: 'center'
+            
+        MDRaisedButton:
+            text: 'Home!'
+            on_release: root.to_home()
+                

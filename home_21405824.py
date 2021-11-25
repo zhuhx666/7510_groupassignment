@@ -11,6 +11,11 @@ from database_21405824 import BtnScreen
 from forums_21461295 import forums
 from forums_21461295 import post #21461295
 
+from query import QueryScreen
+
+from photoshow_wyb import showscreen
+from sharing_page_wyb import share
+
 from kivy.core.window import Window
 from kivy.utils import platform
 if platform in ('win', 'macosx'):
@@ -41,6 +46,11 @@ class MyApp(MDApp):
         # Builder.load_file('function_21461295.kv')
         Builder.load_file('forums_21461295.kv') 
         Builder.load_file('post_21461295.kv')#21461295 +personal_21405524.kv(OneLineListItem)+personal_21405524.py(to_forums)
+
+        Builder.load_file('query.kv')
+
+        Builder.load_file('photoshow_wyb.kv')
+        Builder.load_file('sharing_page_wyb.kv')
         ######################################+login_21405824.py
 #############################################################################################  
         manager = self.manager = ScreenManager()
@@ -55,6 +65,11 @@ class MyApp(MDApp):
         # manager.add_widget(function())
         manager.add_widget(forums())
         manager.add_widget(post()) #21461295
+
+        manager.add_widget(QueryScreen())
+
+        manager.add_widget(showscreen())
+        manager.add_widget(share())
 #############################################################################################  
         return manager
 
