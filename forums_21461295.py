@@ -63,7 +63,7 @@ number=1
 def uploaddata(un, tp, rp,t):  
     global number#计数器，表示整个论坛里有多少帖子和回复    
     data = dict(username=un,topic=tp, reply=rp,time=t)
-    db.child('/Forum/'+str(number) ).set(data)
+    db.child('/Forum/f'+str(number) ).set(data)
     number+=1
 
     
@@ -76,7 +76,7 @@ class forums(Screen):
     global user
     user = 'cbo'
     showname=user#要求里有每个页面显示用户名，所以cbo是我手动输入的。最终，应该是用登录界面的登录名替换cbo。
-    content1='Topic:'+db.child('Forum/1/topic/').get().val()+'\n'+'Content:'+db.child('Forum/1/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/1/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/1/time/').get().val()+'\n'+'Reply:'+db.child('Forum/2/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/2/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/2/time/').get().val()+'\n'
+    content1='Topic:'+db.child('Forum/f1/topic/').get().val()+'\n'+'Content:'+db.child('Forum/f1/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/f1/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/f1/time/').get().val()+'\n'+'Reply:'+db.child('Forum/f2/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/f2/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/f2/time/').get().val()+'\n'
     
     #这里假设发帖和回帖上传和下载数据库时，只有一位用户操作
     def personal(self):
@@ -95,18 +95,18 @@ class forums(Screen):
         t1=datetime.now().strftime('%Y-%m-%d %H:%M:%S')#使用t接收当时时间
         uploaddata(forums.user,'',reply1,t1)#上传用户名，空，回复，时间到数据库（PS：因为是跟帖，所以我设置topic为空）
         number1=number-1
-        self.ids.id_text1.text=self.ids.id_text1.text+'Reply:'+db.child('/Forum/'+str(number1)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/'+str(number1)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/'+str(number1)+'/time/').get().val()+'\n'
+        self.ids.id_text1.text=self.ids.id_text1.text+'Reply:'+db.child('/Forum/f'+str(number1)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/f'+str(number1)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/f'+str(number1)+'/time/').get().val()+'\n'
         #将第一个显示框导入回复内容
         self.ids.id_reply1.text=''#清空回复框
     def refresh(self):
         number2=number-1
         #本该做个循环，但无法用变量表示各个文本框，只能这样
         if(self.ids.id_text2.text==''):
-            self.ids.id_text2.text='Topic:'+db.child('Forum/'+str(number2)+'/topic/').get().val()+'\n'+'Content:'+db.child('Forum/'+str(number2)+'/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/'+str(number2)+'/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/'+str(number2)+'/time/').get().val()+'\n'
+            self.ids.id_text2.text='Topic:'+db.child('Forum/f'+str(number2)+'/topic/').get().val()+'\n'+'Content:'+db.child('Forum/f'+str(number2)+'/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/f'+str(number2)+'/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/f'+str(number2)+'/time/').get().val()+'\n'
             event.cancel()
             
         elif(self.ids.id_text3.text==''):
-            self.ids.id_text3.text='Topic:'+db.child('Forum/'+str(number2)+'/topic/').get().val()+'\n'+'Content:'+db.child('Forum/'+str(number2)+'/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/'+str(number2)+'/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/'+str(number2)+'/time/').get().val()+'\n'
+            self.ids.id_text3.text='Topic:'+db.child('Forum/f'+str(number2)+'/topic/').get().val()+'\n'+'Content:'+db.child('Forum/f'+str(number2)+'/reply/').get().val()+'\t\t'+'User:'+db.child('Forum/f'+str(number2)+'/username/').get().val()+'\t\t'+'Time:'+db.child('Forum/f'+str(number2)+'/time/').get().val()+'\n'
             event.cancel()
         else:
             forums.show_dialog1(self)
@@ -131,7 +131,7 @@ class forums(Screen):
             t21=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             uploaddata(forums.user,'',reply2,t21)
             number21=number-1
-            self.ids.id_text2.text=self.ids.id_text2.text+'Reply:'+db.child('/Forum/'+str(number21)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/'+str(number21)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/'+str(number21)+'/time/').get().val()+'\n'
+            self.ids.id_text2.text=self.ids.id_text2.text+'Reply:'+db.child('/Forum/f'+str(number21)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/f'+str(number21)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/f'+str(number21)+'/time/').get().val()+'\n'
             self.ids.id_reply2.text=''
     def Replying3(self):
         if self.ids.id_text3.text=='':
@@ -142,7 +142,7 @@ class forums(Screen):
             t31=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             uploaddata(forums.user,'',reply3,t31)
             number31=number-1
-            self.ids.id_text3.text=self.ids.id_text3.text+'Reply:'+db.child('/Forum/'+str(number31)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/'+str(number31)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/'+str(number31)+'/time/').get().val()+'\n'
+            self.ids.id_text3.text=self.ids.id_text3.text+'Reply:'+db.child('/Forum/f'+str(number31)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/f'+str(number31)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/f'+str(number31)+'/time/').get().val()+'\n'
             self.ids.id_reply3.text=''
 
     def Clear1(self):
