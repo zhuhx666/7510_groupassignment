@@ -93,7 +93,7 @@ class forums(Screen):
     def Replying1(self):
         reply1=self.ids.id_reply1.text#使用变量reply1接收回复框内容
         t1=datetime.now().strftime('%Y-%m-%d %H:%M:%S')#使用t接收当时时间
-        uploaddata(user,'',reply1,t1)#上传用户名，空，回复，时间到数据库（PS：因为是跟帖，所以我设置topic为空）
+        uploaddata(forums.user,'',reply1,t1)#上传用户名，空，回复，时间到数据库（PS：因为是跟帖，所以我设置topic为空）
         number1=number-1
         self.ids.id_text1.text=self.ids.id_text1.text+'Reply:'+db.child('/Forum/'+str(number1)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/'+str(number1)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/'+str(number1)+'/time/').get().val()+'\n'
         #将第一个显示框导入回复内容
@@ -129,7 +129,7 @@ class forums(Screen):
         else:
             reply2=self.ids.id_reply2.text
             t21=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            uploaddata(user,'',reply2,t21)
+            uploaddata(forums.user,'',reply2,t21)
             number21=number-1
             self.ids.id_text2.text=self.ids.id_text2.text+'Reply:'+db.child('/Forum/'+str(number21)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/'+str(number21)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/'+str(number21)+'/time/').get().val()+'\n'
             self.ids.id_reply2.text=''
@@ -140,7 +140,7 @@ class forums(Screen):
         else:
             reply3=self.ids.id_reply3.text
             t31=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            uploaddata(user,'',reply3,t31)
+            uploaddata(forums.user,'',reply3,t31)
             number31=number-1
             self.ids.id_text3.text=self.ids.id_text3.text+'Reply:'+db.child('/Forum/'+str(number31)+'/reply/' ).get().val()+'\t\t'+'User:'+db.child('/Forum/'+str(number31)+'/username/').get().val()+'\t\t'+'Time:'+db.child('/Forum/'+str(number31)+'/time/').get().val()+'\n'
             self.ids.id_reply3.text=''
@@ -167,7 +167,7 @@ class post(Screen):
             post.show_dialog2(self)
             self.ids.txt_newcontent.text=''
         else:
-            uploaddata(user,newtopic,newcontent,t2)
+            uploaddata(post.user,newtopic,newcontent,t2)
             MDApp.get_running_app().switchTo('forums')#切换到forums页面
         
         

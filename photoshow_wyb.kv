@@ -4,17 +4,28 @@
 
 <showscreen>:
     name: 'showscreen'
-    title: ''       
+    title: '' 
+    contents: ''      
     Column:
         halign: 'center'
         valign: 'center'
         padding: dp(100)
+        spacing: dp(20)
 
         MyTile:
             id: img
             halign: 'center'
+
+        MDLabel:
+            id: id_content1
+            text: root.contents
+            font_size: dp(20)
+
             
         MDRaisedButton:
-            text: 'Home!'
-            on_release: root.to_home()
+            text: 'back'
+            on_release: root.to_share()
+
+        Widget:
+            expandable: True
                 

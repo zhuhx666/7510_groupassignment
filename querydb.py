@@ -42,12 +42,12 @@ db = myfirebase.database()
 storage = myfirebase.storage()
 
 
-class QueryScreen(Screen):
+class QueryScreendb(Screen):
 
     def back(self):
         app = MDApp.get_running_app()
         app.manager.transition.direction = 'left'
-        app.manager.current = 'PersonalScreen'
+        app.manager.current = 'ListScreen'
         print('BACK')
         
     def show_dialog(self):
@@ -70,22 +70,10 @@ class QueryScreen(Screen):
             self.show_dialog()
             return
 
-        def show_username():
-            dialog = MDDialog(
-                title = 'Dialog',
-                text = v['reply']+v['time']+v['topic']+v['username'],
-                buttons = [
-                    MDRaisedButton(
-                        text = 'Close',
-                        on_release = lambda x: dialog.dismiss()),
-                ]
-            )
-            dialog.open()
-
-        # def show_database():
+        # def show_username():
         #     dialog = MDDialog(
         #         title = 'Dialog',
-        #         text = 'emailaddress: '+w['emailaddress']+', '+'id: '+w['id']+', '+'password: '+w['password']+', '+'phonenumber: '+w['phonenumber'],
+        #         text = v['reply']+v['time']+v['topic']+v['username'],
         #         buttons = [
         #             MDRaisedButton(
         #                 text = 'Close',
@@ -93,23 +81,34 @@ class QueryScreen(Screen):
         #         ]
         #     )
         #     dialog.open()
-        result = db.child('/Forum').get().val()
-        for k,v in result.items():
-            if content in v['username']:
-                show_username()
-                break
-                # print('username', v)
-                # dialog.open()
-            if content in v['reply']:
-                # print('reply', v)
-                show_username()
-                break
 
-        # result1 = db.child('/Userlist').get().val()
-        # for l,w in result1.items():
-        #     if content in w['id']:
-        #         show_database()
+        def show_database():
+            dialog = MDDialog(
+                title = 'Dialog',
+                text = 'emailaddress: '+w['emailaddress']+', '+'id: '+w['id']+', '+'password: '+w['password']+', '+'phonenumber: '+w['phonenumber'],
+                buttons = [
+                    MDRaisedButton(
+                        text = 'Close',
+                        on_release = lambda x: dialog.dismiss()),
+                ]
+            )
+            dialog.open()
+        result = db.child('/Forum').get().val()
+        # for k,v in result.items():
+        #     if content in v['username']:
+        #         show_username()
         #         break
         #         # print('username', v)
         #         # dialog.open()
+        #     if content in v['reply']:
+        #         # print('reply', v)
+        #         show_username()
+        #         break
 
+        result1 = db.child('/Userlist').get().val()
+        for l,w in result1.items():
+            if content in w['id']:
+                show_database()
+                break
+                # print('username', v)
+                # dialog.open()

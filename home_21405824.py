@@ -12,6 +12,7 @@ from forums_21461295 import forums
 from forums_21461295 import post #21461295
 
 from query import QueryScreen
+from querydb import QueryScreendb
 
 from photoshow_wyb import showscreen
 from sharing_page_wyb import share
@@ -48,6 +49,7 @@ class MyApp(MDApp):
         Builder.load_file('post_21461295.kv')#21461295 +personal_21405524.kv(OneLineListItem)+personal_21405524.py(to_forums)
 
         Builder.load_file('query.kv')
+        Builder.load_file('querydb.kv')
 
         Builder.load_file('photoshow_wyb.kv')
         Builder.load_file('sharing_page_wyb.kv')
@@ -67,6 +69,7 @@ class MyApp(MDApp):
         manager.add_widget(post()) #21461295
 
         manager.add_widget(QueryScreen())
+        manager.add_widget(QueryScreendb())
 
         manager.add_widget(showscreen())
         manager.add_widget(share())

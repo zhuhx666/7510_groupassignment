@@ -9,7 +9,9 @@ from kivymd.uix.button import MDRaisedButton
 from kivy.core.window import Window
 from kivy.utils import platform
 
-from query import QueryScreen
+# from query import QueryScreen
+from forums_21461295 import forums
+from forums_21461295 import post
 
 
 if platform in ('win', 'macosx'):
@@ -39,7 +41,9 @@ myfirebase = Firebase(config)
 db = myfirebase.database()
 
 class LoginScreen(Screen):
+    
     def login(self):
+        global id
         try:
             id = str(self.ids.txt_id.text)
             ppassword = str(self.ids.txt_password.text)
@@ -79,7 +83,8 @@ class LoginScreen(Screen):
 
                         forumsscreen.user = id#21461295
                         postscreen.user = id#21461295
-
+                        forums.user = id
+                        post.user = id
                         queryscreen.title = id
 
                         sharescreen.title = id

@@ -1,0 +1,36 @@
+<QueryScreendb>:
+    name: 'QueryScreendb'
+    title: ''
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Column:
+        MDToolbar:
+            elevation: dp(5)
+            title: "Account: " + root.title
+            right_action_items:[['magnify', lambda x: app.switchTo('QueryScreendb')]]
+            left_action_items:[['arrow-left', lambda x: root.back()]]
+            md_bg_color: app.theme_cls.accent_color
+
+        Column:
+            halign: 'center'
+            valign: 'center'
+            padding: dp(100)
+            spacing: dp(20)
+
+            MDLabel:
+                id: label
+                text: 'Search'
+                font_size: dp(48)
+                color: .5, .5, .8, 1
+            Widget:
+                expandable: True
+            MDTextField:
+                id: content_field
+                hint_text: "Enter any content..."               
+
+            MDRaisedButton:
+                text: 'Search'
+                on_release: root.to_search()
