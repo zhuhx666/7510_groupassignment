@@ -42,8 +42,8 @@ class ContentNavigationDrawer(MDBoxLayout):
     screen_manager = ObjectProperty()
     nav_drawer = ObjectProperty()
 
-    def to_home(self):
-        MDApp.get_running_app().switchTo('HomeScreen')
+    def to_login(self):
+        MDApp.get_running_app().switchTo('LoginScreen')
 
     def to_personal(self):
         MDApp.get_running_app().switchTo('PersonalScreen')

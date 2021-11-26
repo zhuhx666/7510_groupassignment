@@ -85,7 +85,7 @@ class ListScreen(Screen):
         container.clear_widgets()
     def go_back(self):
         app = MDApp.get_running_app()
-        app.manager.current = 'HomeScreen'
+        app.manager.current = 'LoginScreen'
         app.manager.transition.direction = 'right'
 
 class BtnScreen(Screen):

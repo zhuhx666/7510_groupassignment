@@ -80,7 +80,7 @@ class RegisterScreen(Screen):
         self.ids.txt_phonenumber.text = ''
         app = MDApp.get_running_app()
         app.manager.transition.direction = 'left'
-        app.manager.current = 'HomeScreen'
+        app.manager.current = 'LoginScreen'
         print('BACK')
 
     def show_dialog(self):
